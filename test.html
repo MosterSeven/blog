@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        #moveSelected{
+            position:absolute;
+            background-color: blue;
+            opacity:0.3;
+            border:1px dashed #d9d9d9;
+            top:0;
+            left:0;
+        }
+        .selected{
+            background-color: pink;
+        }
+        .list{
+            margin: 100px auto;
+            padding: 20px;
+        }
+        div{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="list">
+        <div>
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+        </div>
+    
+        <div>
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+        </div>
+    
+        <div>
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+        </div>
+    
+        <div>
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+            <input type="checkbox" name="" id="">
+        </div>
+        <!-- 遮罩层 -->
+        <div id="moveSelected"></div>
+    </div>
+    
+    
+
+    <script>
+    $(document).ready(function(){
+        // 获取遮罩层元素
+        let moveSelected=$('#moveSelected')[0];
+        //表示开启拖拽的标志
+        let flag=false;
+        //鼠标按下时的left,top
+        let newLeft=0;
+        let newTop=0;
+        //用来存被拖拽选中的checkbox们(测试用)
+        let selectedList=[];
+
+        // 监听鼠标按下事件，将遮罩定位并展示
+        $(".list").mousedown(function(event) {
+            // 把flag置1
+            flag=true;
+            // 获取触发事件的鼠标在当前页面的位置
+            newLeft=event.pageX;
+            newTop=event.pageY;
+
+            // 改变遮罩层
+            moveSelected.style.left=newLeft+'px';
+            moveSelected.style.top=newTop+'px';
+
+            
+            event.preventDefault();  // 阻止默认行为
+        });
+
+        // 鼠标移动:计算遮罩的位置
+        $(".list").mousemove(function(event) {
+            //拖拽了才进行下一步
+            if(!flag) return;
+
+            const nowLeft=event.pageX;
+            const nowTop=event.pageY;
+
+            if(nowLeft < newLeft){
+                moveSelected.style.left=nowLeft+'px';
+                moveSelected.style.width=(newLeft - nowLeft)+'px';
+            }else{
+                moveSelected.style.width=(nowLeft - newLeft)+'px';
+            }
+
+            if(nowTop < newTop){
+                moveSelected.style.top=nowTop +'px';
+                moveSelected.style.height=(newTop - nowTop)+'px';
+            }else{
+                moveSelected.style.height=(nowTop - newTop)+'px';
+            }
+
+        });
+
+        //鼠标抬起
+        $(".list").mouseup(function(event) {
+            // 获取遮罩层大小
+            let coverTop=parseFloat(moveSelected.style.top);
+            let coverLeft=parseFloat(moveSelected.style.left);
+            let coverHeight=parseFloat(moveSelected.style.height);
+            let coverWidth=parseFloat(moveSelected.style.width);
+
+            // 设置遮罩层的bottom和right
+            moveSelected.style.bottom=coverTop + coverHeight + 'px';
+            moveSelected.style.right=coverLeft + coverWidth +'px';
+
+            // 找出遮罩覆盖的块
+            findCheckedBox();
+            // 关闭拖拽,置flag为0
+            flag=false;
+            clearDragData();
+
+            // event.stopPropagation(); // 阻止事件冒泡
+        });
+
+        $(".list").mouseleave(function(event) {
+            flag=false;
+            // 把遮罩层清零
+            moveSelected.style.width=0;
+            moveSelected.style.height=0;
+            moveSelected.style.top=0;
+            moveSelected.style.left=0;
+
+            // 获取checkbox
+            // let checkbox=$('.list').find('input');
+            for(let i=0;i<selectedList.length;i++){
+                $(selectedList[i]).prop('checked',false)
+            }
+            
+        });
+
+        function findCheckedBox(){
+            // 获取checkbox
+            let checkbox=$('.list').find('input');
+            // 遍历
+            for(let i=0;i<checkbox.length;i++){
+                //获取每一个checkbox的位置
+                let left=$(checkbox[i]).offset().left;
+                let right=$(checkbox[i]).width()+left;
+                let top=$(checkbox[i]).offset().top;
+                let bottom=$(checkbox[i]).height()+top;
+
+                // 获取遮罩层大小
+                let coverTop=parseFloat(moveSelected.style.top);
+                let coverBottom=parseFloat(moveSelected.style.bottom);
+                let coverLeft=parseFloat(moveSelected.style.left);
+                let coverRight=parseFloat(moveSelected.style.right);
+
+                //判断checkbox是否被遮罩盖住
+                let leftFlag=coverLeft <= left && left <= coverRight;
+                let rightFlag=coverLeft <= right && right <= coverRight;
+                let topFlag=coverTop <= top && top <= coverBottom;
+                let bottomFlag=coverTop <= bottom && bottom <= coverBottom;
+                
+                // 只要左右和上下边界中有两个被遮罩层盖住就视为被选中
+                if((leftFlag || rightFlag)){
+                    if((topFlag || bottomFlag)){
+                        selectedList.push(checkbox[i]);//测试用
+                        $(checkbox[i]).prop('checked',true);
+                    }
+                    
+                }
+            }
+        }
+
+        function clearDragData(){
+            moveSelected.style.width=0;
+            moveSelected.style.height=0;
+            moveSelected.style.top=0;
+            moveSelected.style.left=0;
+            moveSelected.style.bottom=0;
+            moveSelected.style.right=0;
+        }
+    });
+    </script>
+
+</body>
+
+
+</html>
