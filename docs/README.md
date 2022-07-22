@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: $withBase('/blog/avatar.png')
+heroImage: /blog/avatar.png
 heroText: Moster Seven
 tagline: 第一次尝试使用vuepress部署博客
 actionText: 浅浅看一下 →
