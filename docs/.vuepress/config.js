@@ -1,13 +1,13 @@
 module.exports = {
-  title: "bulk java",
+  title: "Moster Seven",
   description: "Just playing around",
   base: "/blog/",
   themeConfig: {
     sidebar: "auto",
     nav: [
       { text: "Home", link: "/" },
-      { text: "Guide", link: "/guide/" },
-      { text: "Gitee", link: "https://www.gitee.com" },
+      { text: "博客园", link: "https://www.cnblogs.com/MosterSeven/" },
+      { text: "Gitee", link: "https://gitee.com/mosterseven" },
     ],
   },
 };
