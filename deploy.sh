@@ -1,3 +1,7 @@
+#!/usr/bin/env sh
+
+set -e
+
 npm run docs:build
 
 cd docs/.vuepress/dist
@@ -11,5 +15,5 @@ git commit -m 'deploy'
 git push -f https://gitee.com/mosterseven/blog.git master:doc-pages
 
 cd ..
-rmdir /Q /S dist
+rmdir /S /Q dist
 
