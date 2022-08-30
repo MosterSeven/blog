@@ -2,15 +2,32 @@
 home: true
 heroImage: "/avatar.png"
 heroText: Moster Seven
-tagline: 第一次尝试使用vuepress部署博客
+tagline: 我的第一个vuepress部署的博客
 actionText: 浅浅看一下 →
 actionLink: /studyNote/pinia-study/
 features:
   - title: part1
-    details: 各个组件独立开发，除了基础公共部分，相互独立。
+    details: 我的个人简历。
   - title: part2
-    details: 每个组件是单个具体功能的实现CRUD。
+    details: 前端学习笔记。
   - title: part3
-    details: 组件可搭配组装，组成模块或项目。
+    details: 个人博客。
 footer: MIT Licensed | Copyright © 2022-present Moster Seven
 ---
+
+---
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+## 学习笔记列表
+
+- [Pinia 学习](/studyNote/pinia-study.md)
+- [Ajax 学习](https://gitee.com/mosterseven/study-notes-only/blob/master/Ajax.md)
+- [Pinia 学习](/studyNote/pinia-study.md)
+- [Pinia 学习](/studyNote/pinia-study.md)
+- [Pinia 学习](/studyNote/pinia-study.md)
+- [Pinia 学习](/studyNote/pinia-study.md)
+- [Pinia 学习](/studyNote/pinia-study.md)

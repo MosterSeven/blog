@@ -9,6 +9,14 @@ module.exports = {
   host: "0.0.0.0",
   // 指定用于 dev server 的端口
   port: "8080",
+  // 额外的需要被注入到当前页面的 HTML <head> 中的标签
+  head: [
+    // 增加一个自定义的 favicon
+    // ["link", { rel: "icon", href: "/avatar-cute.png" }],
+    ["link", { rel: "icon", href: "/cloudy.png" }],
+    // ["link", { rel: "icon", href: "/sheep.png" }],
+  ],
+  // theme:'',
   // 为当前的主题提供一些配置，这些选项依赖于你正在使用的主题
   themeConfig: {
     // 导航栏logo
@@ -31,7 +39,7 @@ module.exports = {
     ],
     // 获取每个文件最后一次 git 提交的 UNIX 时间戳，同时它将以合适的日期格式显示在每一页的底部
     // 默认是关闭的，如果给定一个字符串，它将会作为前缀显示
-    lastUpdated: "Last Updated", // string | boolean
+    lastUpdated: "最后更新时间", // string | boolean
     locales: {
       "/": {
         // 多语言下拉菜单默认的标题
