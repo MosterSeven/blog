@@ -1,6 +1,7 @@
+# Vite
 ## 使用 Vite
 
-#### 创建项目
+### 创建项目
 
 ```sh
 npm init vite@latest 项目名称
@@ -12,7 +13,7 @@ npm init vite@latest 项目名称
 
 特点：创建速度很快，但是项目所依赖的包全部都没有下载
 
-#### 启动项目
+### 启动项目
 
 ```
 npm run dev
@@ -42,7 +43,7 @@ export default defineConfig(({ command, mode }) => {
     }
   }
 })
-````
+```
 
 ## 更改配置文件
 
