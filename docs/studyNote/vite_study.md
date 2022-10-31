@@ -19,9 +19,9 @@ npm init vite@latest 项目名称
 npm run dev
 ```
 
-## 环境变量[¶](https://cn.vitejs.dev/config/#environment-variables)
+## 环境变量
 
-环境变量通常可以从  `process.env`  获得。
+环境变量[¶](https://cn.vitejs.dev/config/#environment-variables)通常可以从  `process.env`  获得。
 
 ::: warning 注意 
 Vite 默认是不加载  `.env`  文件的，因为这些文件需要在执行完 Vite 配置后才能确定加载哪一个。
