@@ -22,6 +22,8 @@ module.exports = {
     // 导航栏logo
     logo: "/avatar.png",
     sidebar: "auto",
+    // 显示所有页面的标题链接
+    displayAllHeaders: true, // 默认值：false
     // 导航栏链接
     nav: [
       { text: "Home", link: "/" },

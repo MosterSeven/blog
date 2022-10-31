@@ -8,34 +8,36 @@
 
 ## 2、express
 - 创建项目目录
-```cmd
+```bat
 mkdir hello
 ```
 
 - 初始化项目
+
 首先确保进入到新创建的项目目录中:
-```cmd
+```bat
 cd hello
 ```
 
 初始化项目:
-```cmd
+```bat
 npm init --yes
 ```
 
 项目初始化后，在项目目录下会产生一个 `package.json` 文件，该文件就是当前项目的描述文件。
 
 - 安装`express`
+
 确保已经进入到项目目录中，随后执行:
-```cmd
+```bat
 npm install --save express
 ```
 或
-```cmd
+```bat
 npm install -S express
 ```
 或
-```
+```bat
 npm install express
 ```
 
@@ -43,6 +45,7 @@ npm install express
 新版的 npm 默认就是将依赖安装到  `dependencies` 中，因此可以省略 `--save` 、`-S`
 
 - 创建 `app.js`
+
 其中内容如下:
 ```js
 // 导入 express 模块
@@ -75,21 +78,22 @@ app.listen( port );
 ```
 这里的 `nodemon` 是用来运行 `app.js` 的一个组件。
 nodemon 是全局安装的一个组件:
-```cmd
+```bat
 npm install -g nodemon
 ```
 或者也可以通过以下方式安装:
-```cmd
+```bat
 npm install --global nodemon
 ```
 
 - 启动服务
+
 可以通过运行 `start` 脚本来启动服务:
-```cmd
+```bat
 npm run start
 ```
 或者使用以下方式:
-```cmd
+```bat
 npm start
 ```
 
