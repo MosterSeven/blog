@@ -8,7 +8,7 @@
 从 Docker 官方镜像仓库[https://hub.docker.com/](https://hub.docker.com/)安装 Redis
 `docker run -d -p 6379:6379 --name redis redis:latest`
 
-!!! note
+::: note
    `docker run` - 表示 Docker 运行一个软件
 
     `-d`
@@ -22,6 +22,7 @@
 
     `redis：latest`
     - 使用的是Redis的最新版本
+:::
 
 #### 自己 Build 镜像和运行
 
@@ -29,7 +30,8 @@
 
 `docker build -t test:v1 .`
 
-!!! note
+
+::: note
    `docker build` - 表示 Docker 根据当前目录下的 Dockerfile 文件打包
 
     `-t test：v1`
@@ -37,6 +39,7 @@
 
     `.`
     - 是 `./` 的省略写法，表示当前目录
+:::
 
 ##### 运行 image 镜像
 
@@ -91,14 +94,14 @@ CMD node app.js
 
 ```
 
-!!! caution 
+::: caution 
    - 指令是不区分大小写的，不过习惯上他们是大写，以便于区分指令和参数 
    - Docker 按顺序运行 Dockerfile 中的指令 
    - 一个 Dockerfile 必须以 FROM 指令开始，这可能是在解析器指令、注释和全局范围的 ARG 之后 
    - FROM 指令指定了你要构建的父镜像 - FROM 前面只能有一个或多个 ARG 指令，这些指令声明了 Dockerfile 中 FROM 行使用的参数。 
    - Docker 将以#开头的行视为注释，除非该行是一个有效的分析器指令。一行中其他地方的#标记被视为参数。 
    - 这允许像这样的语句 `RUN echo 'we are running some # of cool things'`
-
+:::
 
 ##### 实用小技巧
 
@@ -142,9 +145,9 @@ CMD node app.js
 示例：  
 `docker run -p 8080:8080 --name test-hello -v 绝对路径:/app -d test:v1`
 
-!!! note
+::: note
    `-v` - 把项目代码挂载到容器 `text-hello` 里的 `/app` 目录下
-
+:::
 
 #### 多容器通信
 
@@ -313,7 +316,7 @@ services:
 - 运行一个 Ubuntu 的容器，挂载`mongo`容器的所有 volume，映射宿主机的 backup 目录到容器里面的 /backup 目录，然后运行 tar 命令把数据压缩打包  
   `docker run --rm --volumes-from mongo -v d:/backup:/backup ubuntu tar cvf /backup/backup.tar /data/`
 
-!!! note
+::: note
     `--rm` - 表示如果存在同名容器,那么会先把这个同名容器删除
 
     `--volumes-from mongo`
@@ -327,7 +330,7 @@ services:
 
     `tar cvf /backup/backup.tar /data/`
     - 使用 `tar` 命令把 `/data/` 这个目录压缩，放在 `/backup/backup.tar` 位置并命名压缩包为 `backup.tar`
-
+:::
 
 最后你就可以拿着这个 backup.tar 文件去其他地方导入了。
 
@@ -339,18 +342,18 @@ services:
 > 注意，volumes-from 指定的是容器名字  
 > strip 1 表示解压时去掉前面 1 层目录，因为压缩时包含了绝对路径
 
-!!! note
-    `bash -c`
-    - 表示执行“”里的脚本命令
+::: note
+   `bash -c`
+   - 表示执行“”里的脚本命令
 
-    `&&`
-    - 是多个命令之间的连接符
+   `&&`
+   - 是多个命令之间的连接符
 
-    `tar xvf /backup/backup.tar --strip 1`
-    - 表示解压目录在 `/backup/backup.tar` 的文件
-    - `tar xvf` 可以解压缩任何格式（？）的压缩包
-    - `--strip 1` 表示解压的时候改变目录结构
-
+   `tar xvf /backup/backup.tar --strip 1`
+   - 表示解压目录在 `/backup/backup.tar` 的文件
+   - `tar xvf` 可以解压缩任何格式（？）的压缩包
+   - `--strip 1` 表示解压的时候改变目录结构
+:::
 
 ### gva 后台的 Dockerfile 解读
 

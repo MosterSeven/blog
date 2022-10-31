@@ -17,8 +17,5 @@
   "license": "ISC",
   "devDependencies": {
     "vuepress": "^1.9.7"
-  },
-  "dependencies": {
-    "hexo-admonition-better": "^1.1.5"
   }
 }
