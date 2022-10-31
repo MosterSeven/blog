@@ -1,4 +1,4 @@
-## 使用Vite
+## 使用 Vite
 
 #### 创建项目
 
@@ -6,9 +6,9 @@
 npm init vite@latest 项目名称
 ```
 
-支持的框架选vue
+支持的框架选 vue
 
->当然除了vue，vite还支持react等其他框架，还可以选择有js还是ts语法进行开发
+> 当然除了 vue，vite 还支持 react 等其他框架，还可以选择有 js 还是 ts 语法进行开发
 
 特点：创建速度很快，但是项目所依赖的包全部都没有下载
 
@@ -18,17 +18,15 @@ npm init vite@latest 项目名称
 npm run dev
 ```
 
-
-
 ## 环境变量[¶](https://cn.vitejs.dev/config/#environment-variables)
 
-环境变量通常可以从 `process.env` 获得。
+环境变量通常可以从  `process.env`  获得。
 
-```ad-caution
-Vite 默认是不加载 `.env` 文件的，因为这些文件需要在执行完 Vite 配置后才能确定加载哪一个。
-举个例子，`root` 和 `envDir` 选项会影响加载行为。不过当你的确需要时，你可以使用 Vite 导出的 `loadEnv` 函数来加载指定的 `.env` 文件。
+!!! caution
+  Vite 默认是不加载  `.env`  文件的，因为这些文件需要在执行完 Vite 配置后才能确定加载哪一个。
+  举个例子，`root`  和  `envDir`  选项会影响加载行为。不过当你的确需要时，你可以使用 Vite 导出的  `loadEnv`  函数来加载指定的  `.env`  文件。
 
-```
+````
 
 ```js
 import { defineConfig, loadEnv } from 'vite'
@@ -44,17 +42,15 @@ export default defineConfig(({ command, mode }) => {
     }
   }
 })
-```
-
-
+````
 
 ## 更改配置文件
 
-通过vite创建的项目，可以在`vite.config.js`里面更改设置
+通过 vite 创建的项目，可以在`vite.config.js`里面更改设置
 
 ### 开发服务器选项
 
-以下代码来自gva-admin项目:
+以下代码来自 gva-admin 项目:
 
 ```js
 server: {
@@ -84,15 +80,14 @@ server: {
     },
 ```
 
-```ad-caution
-在 vite 原本的写法里是不支持想上面那样直接不写任何东西就从 .env.development 文件里读取环境变量的。
+!!! caution
+  在 vite 原本的写法里是不支持想上面那样直接不写任何东西就从 .env.development 文件里读取环境变量的。
 
-gva-admin 项目里使用了 **dotenv** 模块，它可以将环境变量从 .env 文件加载到 process.env 中。
+  gva-admin 项目里使用了 **dotenv** 模块，它可以将环境变量从 .env 文件加载到 process.env 中。
 
-
-```
 
 #### dotenv
+
 以下内容参考[知乎文章](https://zhuanlan.zhihu.com/p/520510298)
 
 ##### 使用
@@ -104,13 +99,12 @@ S3_BUCKET="YOURS3BUCKET"
 SECRET_KEY="YOURSECRETKEYGOESHERE"
 ```
 
-
-如果要在运行时通过 `process.env`获取 .env 文件中的值，就需要 dotenv 库在启动项目时来加载和解析 .env 文件内容并挂载到`process.env`对象上。
+如果要在运行时通过  `process.env`获取 .env 文件中的值，就需要 dotenv 库在启动项目时来加载和解析 .env 文件内容并挂载到`process.env`对象上。
 
 ```js
-require('dotenv').config() // 调用 dotenv 里的 config 方法
-console.log(process.env.S3_BUCKET) // YOURS3BUCKET
-console.log(process.env.SECRET_KEY) // YOURSECRETKEYGOESHERE
+require("dotenv").config(); // 调用 dotenv 里的 config 方法
+console.log(process.env.S3_BUCKET); // YOURS3BUCKET
+console.log(process.env.SECRET_KEY); // YOURSECRETKEYGOESHERE
 ```
 
 ##### 自定义解析内容
@@ -118,17 +112,15 @@ console.log(process.env.SECRET_KEY) // YOURSECRETKEYGOESHERE
 如果手动解析.env 文件内容，使用 dotenv 提供的核心函数 parse。
 
 ```js
-const dotenv = require('dotenv')
+const dotenv = require("dotenv");
 // 或者使用 import 导入
 // import * as dotenv from 'dotenv'
 
-const envConfig = dotenv.parse('S3_BUCKET="YOURS3BUCKET"') // 将返回一个对象
-console.log(typeof envConfig, envConfig) // object { S3_BUCKET: 'YOURS3BUCKET' }
+const envConfig = dotenv.parse('S3_BUCKET="YOURS3BUCKET"'); // 将返回一个对象
+console.log(typeof envConfig, envConfig); // object { S3_BUCKET: 'YOURS3BUCKET' }
 
 // 快速把对应的环境变量读取出来
 for (const k in envConfig) {
-	process.env[k] = envConfig[k]
+  process.env[k] = envConfig[k];
 }
 ```
-
-
