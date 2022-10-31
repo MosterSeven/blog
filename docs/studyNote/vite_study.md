@@ -22,7 +22,7 @@ npm run dev
 
 环境变量通常可以从  `process.env`  获得。
 
-::: caution
+::: warning Caution 
   Vite 默认是不加载  `.env`  文件的，因为这些文件需要在执行完 Vite 配置后才能确定加载哪一个。
   举个例子，`root`  和  `envDir`  选项会影响加载行为。不过当你的确需要时，你可以使用 Vite 导出的  `loadEnv`  函数来加载指定的  `.env`  文件。
 :::
@@ -80,7 +80,7 @@ server: {
     },
 ```
 
-::: caution
+::: warning Caution 
   在 vite 原本的写法里是不支持想上面那样直接不写任何东西就从 .env.development 文件里读取环境变量的。
 
   gva-admin 项目里使用了 **dotenv** 模块，它可以将环境变量从 .env 文件加载到 process.env 中。

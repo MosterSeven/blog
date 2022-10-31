@@ -8,7 +8,7 @@
 从 Docker 官方镜像仓库[https://hub.docker.com/](https://hub.docker.com/)安装 Redis
 `docker run -d -p 6379:6379 --name redis redis:latest`
 
-::: note
+::: tip Note
    `docker run` - 表示 Docker 运行一个软件
 
     `-d`
@@ -31,7 +31,7 @@
 `docker build -t test:v1 .`
 
 
-::: note
+::: tip Note
    `docker build` - 表示 Docker 根据当前目录下的 Dockerfile 文件打包
 
     `-t test：v1`
@@ -94,7 +94,7 @@ CMD node app.js
 
 ```
 
-::: caution 
+::: warning Caution 
    - 指令是不区分大小写的，不过习惯上他们是大写，以便于区分指令和参数 
    - Docker 按顺序运行 Dockerfile 中的指令 
    - 一个 Dockerfile 必须以 FROM 指令开始，这可能是在解析器指令、注释和全局范围的 ARG 之后 
@@ -145,7 +145,7 @@ CMD node app.js
 示例：  
 `docker run -p 8080:8080 --name test-hello -v 绝对路径:/app -d test:v1`
 
-::: note
+::: tip Note
    `-v` - 把项目代码挂载到容器 `text-hello` 里的 `/app` 目录下
 :::
 
@@ -316,7 +316,7 @@ services:
 - 运行一个 Ubuntu 的容器，挂载`mongo`容器的所有 volume，映射宿主机的 backup 目录到容器里面的 /backup 目录，然后运行 tar 命令把数据压缩打包  
   `docker run --rm --volumes-from mongo -v d:/backup:/backup ubuntu tar cvf /backup/backup.tar /data/`
 
-::: note
+::: tip Note
     `--rm` - 表示如果存在同名容器,那么会先把这个同名容器删除
 
     `--volumes-from mongo`
@@ -342,7 +342,7 @@ services:
 > 注意，volumes-from 指定的是容器名字  
 > strip 1 表示解压时去掉前面 1 层目录，因为压缩时包含了绝对路径
 
-::: note
+::: tip Note
    `bash -c`
    - 表示执行“”里的脚本命令
 
