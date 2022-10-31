@@ -9,19 +9,19 @@
 `docker run -d -p 6379:6379 --name redis redis:latest`
 
 ::: tip Note
-   `docker run` - 表示 Docker 运行一个软件
+`docker run` - 表示 Docker 运行一个软件
 
-    `-d`
-    - 表示在后台运行
+   `-d`
+   - 表示在后台运行
 
-    `-p`
-    - 端口映射：表示端口的暴露（把docker文件里的端口【容器的端口】6379暴露到宿主机6379）
+   `-p`
+   - 端口映射：表示端口的暴露（把docker文件里的端口【容器的端口】6379暴露到宿主机6379）
 
-    `--name redis`
-    - 给容器命名为 redis
+   `--name redis`
+   - 给容器命名为 redis
 
-    `redis：latest`
-    - 使用的是Redis的最新版本
+   `redis：latest`
+   - 使用的是Redis的最新版本
 :::
 
 #### 自己 Build 镜像和运行
@@ -32,13 +32,13 @@
 
 
 ::: tip Note
-   `docker build` - 表示 Docker 根据当前目录下的 Dockerfile 文件打包
+`docker build` - 表示 Docker 根据当前目录下的 Dockerfile 文件打包
 
-    `-t test：v1`
-    - 设置镜像名字为 `test` ，设置镜像版本号为v1
+   `-t test：v1`
+   - 设置镜像名字为 `test` ，设置镜像版本号为v1
 
-    `.`
-    - 是 `./` 的省略写法，表示当前目录
+   `.`
+   - 是 `./` 的省略写法，表示当前目录
 :::
 
 ##### 运行 image 镜像
@@ -94,13 +94,13 @@ CMD node app.js
 
 ```
 
-::: warning Caution 
-   - 指令是不区分大小写的，不过习惯上他们是大写，以便于区分指令和参数 
-   - Docker 按顺序运行 Dockerfile 中的指令 
-   - 一个 Dockerfile 必须以 FROM 指令开始，这可能是在解析器指令、注释和全局范围的 ARG 之后 
-   - FROM 指令指定了你要构建的父镜像 - FROM 前面只能有一个或多个 ARG 指令，这些指令声明了 Dockerfile 中 FROM 行使用的参数。 
-   - Docker 将以#开头的行视为注释，除非该行是一个有效的分析器指令。一行中其他地方的#标记被视为参数。 
-   - 这允许像这样的语句 `RUN echo 'we are running some # of cool things'`
+::: warning 注意 
+- 指令是不区分大小写的，不过习惯上他们是大写，以便于区分指令和参数 
+- Docker 按顺序运行 Dockerfile 中的指令 
+- 一个 Dockerfile 必须以 FROM 指令开始，这可能是在解析器指令、注释和全局范围的 ARG 之后 
+- FROM 指令指定了你要构建的父镜像 - FROM 前面只能有一个或多个 ARG 指令，这些指令声明了 Dockerfile 中 FROM 行使用的参数。 
+- Docker 将以#开头的行视为注释，除非该行是一个有效的分析器指令。一行中其他地方的#标记被视为参数。 
+- 这允许像这样的语句 `RUN echo 'we are running some # of cool things'`
 :::
 
 ##### 实用小技巧
@@ -146,7 +146,7 @@ CMD node app.js
 `docker run -p 8080:8080 --name test-hello -v 绝对路径:/app -d test:v1`
 
 ::: tip Note
-   `-v` - 把项目代码挂载到容器 `text-hello` 里的 `/app` 目录下
+`-v` - 把项目代码挂载到容器 `text-hello` 里的 `/app` 目录下
 :::
 
 #### 多容器通信
@@ -317,19 +317,19 @@ services:
   `docker run --rm --volumes-from mongo -v d:/backup:/backup ubuntu tar cvf /backup/backup.tar /data/`
 
 ::: tip Note
-    `--rm` - 表示如果存在同名容器,那么会先把这个同名容器删除
+`--rm` - 表示如果存在同名容器,那么会先把这个同名容器删除
 
-    `--volumes-from mongo`
-    - 表示从名为 `mongo` 的容器里挂载volume
+`--volumes-from mongo`
+- 表示从名为 `mongo` 的容器里挂载volume
 
-    `-v d:/backup:/backup`
-    - 表示指定一个绝对路径 `d:/backup` ，把宿主机的此目录指向容器里的 `/backup` 目录
+`-v d:/backup:/backup`
+- 表示指定一个绝对路径 `d:/backup` ，把宿主机的此目录指向容器里的 `/backup` 目录
 
-    `ubuntu`
-    - 使用Ubuntu镜像
+`ubuntu`
+- 使用Ubuntu镜像
 
-    `tar cvf /backup/backup.tar /data/`
-    - 使用 `tar` 命令把 `/data/` 这个目录压缩，放在 `/backup/backup.tar` 位置并命名压缩包为 `backup.tar`
+`tar cvf /backup/backup.tar /data/`
+- 使用 `tar` 命令把 `/data/` 这个目录压缩，放在 `/backup/backup.tar` 位置并命名压缩包为 `backup.tar`
 :::
 
 最后你就可以拿着这个 backup.tar 文件去其他地方导入了。
@@ -343,14 +343,14 @@ services:
 > strip 1 表示解压时去掉前面 1 层目录，因为压缩时包含了绝对路径
 
 ::: tip Note
-   `bash -c`
-   - 表示执行“”里的脚本命令
+`bash -c`
+- 表示执行“”里的脚本命令
 
-   `&&`
-   - 是多个命令之间的连接符
+`&&`
+- 是多个命令之间的连接符
 
-   `tar xvf /backup/backup.tar --strip 1`
-   - 表示解压目录在 `/backup/backup.tar` 的文件
+`tar xvf /backup/backup.tar --strip 1`
+- 表示解压目录在 `/backup/backup.tar` 的文件
    - `tar xvf` 可以解压缩任何格式（？）的压缩包
    - `--strip 1` 表示解压的时候改变目录结构
 :::
