@@ -12,7 +12,7 @@ features:
     details: 前端学习笔记。
   - title: part3
     details: 个人博客。
-footer: MIT Licensed | Copyright © 2022-present Moster Seven
+footer: MIT Licensed | Copyright © 2023-present Moster Seven
 ---
 
 ---
