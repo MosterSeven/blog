@@ -28,8 +28,8 @@ module.exports = {
     // 导航栏链接
     nav: [
       { text: "Home", link: "/" },
-      { text: "前端笔记", link: "/studyNote/frontend/front_end" },
-      { text: "后端笔记", link: "/studyNote/backend/back_end" },
+      { text: "前端笔记", link: "studyNote/frontend/front_end" },
+      { text: "后端笔记", link: "studyNote/backend/back_end" },
       { text: "博客园", link: "https://www.cnblogs.com/MosterSeven/" },
       { text: "Gitee", link: "https://gitee.com/mosterseven" },
       // {
