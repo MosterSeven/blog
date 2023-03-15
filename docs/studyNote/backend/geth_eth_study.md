@@ -73,6 +73,7 @@ genesis.json
 | parentHash | 父块hash值，因为是创世块，所以没有父块hash值，初始化为0                                                                                                                         |
 | timestamp  | 时间戳，是从1970-01-01 00:00:00开始计算以秒为单位                                                                                                                       |  
 
+
 ## Geth常用参数说明
 
 >可以通过 `geth -h` 帮助指令查看所以指令及对应功能说明，以下常用指令说明
@@ -113,6 +114,7 @@ geth --datadir file_location init genesis.json
 
 生成目录结构
 ```
+document
 ├──file_location
 │   ├── geth
 │   │   ├── chaindata
@@ -135,10 +137,10 @@ geth --datadir file_location init genesis.json
 
 ### 开启节点命令
 
-cmd 进入到 document 文件夹(也就是 genesis.json 所在的文件夹)
+cmd 进入到 document 文件夹(也就是 file_location 上层文件夹)
 
 ```
-geth --datadir file_location --networkid 1108 --http --http.addr 0.0.0.0 --http.port 8545 --http.corsdomain "*" --port 30305 --allow-insecure-unlock console
+geth --datadir file_location --networkid 202339 --http --http.addr 0.0.0.0 --http.port 8545 --http.corsdomain "*" --port 30305 --allow-insecure-unlock console
 ```
 
 - `--networkid`：用于区分不同的区块链网络，与创世块chainId一样，0为以太坊主网
@@ -149,11 +151,22 @@ geth --datadir file_location --networkid 1108 --http --http.addr 0.0.0.0 --http.
 - `--port`
 - `--allow-insecure-unlock`
 
-连接私有链控制台（？）
-geth attach ipc:http://127.0.0.1:8545
+运行完上面的代码后cmd内应该输出 `Welcome to the Geth JavaScript console!`
+
+```ad-caution
+title:可能出现的报错
+- 错误1：`Fatal: Error starting protocol stack: Access is denied.`
+	- 错误原因：因为你开启了 2 个或以上的 geth 进程。
+	- 解决方法：需要关闭另外的 ethereum 客户端。
+```
+
+
+从cmd连接刚刚启动的私有链的控制台
+`geth attach ipc:http://127.0.0.1:8545`
 
 删除 filename位置的块
-geth removedb --datadir filename
+`geth removedb --datadir filename`
+
 
 ### 日志相关指令
 
@@ -174,6 +187,28 @@ geth <other flags> console --verbosity 3 2> geth-logs.log
 ```
 
 
+## 钱包账户导入
+
+
+### 本地账户导入Metamask
+
+1. 打开 Metamask 的汇入账户页面
+2. 选择 JSON 格式档案，即 file_location/keystore 文件夹下的所需账户的密钥文件
+3. 输入本地账户的密码
+4. 等待汇入成功
+
+
+### Metamask账户导入本地区块链
+
+1. 打开 Metamask ，选择账户详情-汇出私钥
+2. 输入 Metamask 账户密码（用助记词导入账户后你创建的密码）
+3. 复制私钥，随便创建一个 txt 文件并将私钥复制进去
+4. 输入  `geth account import 刚刚创建的 txt 文件路径`
+5. 如果路径无误，会提示你输入密码，这个密码就是刚刚那个 Metamask 账户密码
+6. 输入 `geth account list` 获取刚刚生成的密钥文件位置
+7. 将密钥文件复制到 file_location/keystore 文件夹下即可汇入成功
+8. 启动本地区块链节点，输入 `eth.accounts` 查看是否新增账户成功
+
 
 ## Geth管理后台常用命令
 
@@ -186,6 +221,7 @@ geth <other flags> console --verbosity 3 2> geth-logs.log
 ```
 
 返回一个数组。
+
 
 ### 新建账户
 
@@ -375,6 +411,57 @@ I0322 19:39:36.300675 internal/ethapi/api.go:1047] Tx(0x0c59f431068937cbe9e23048
 }
 ```
 
+
+### 通过交易哈希查询数据
+
+web3.eth.getTransactionReceipt(hashString [, callback])
+
+通过一个交易哈希，返回一个交易的收据。
+
+备注：处于`pending`状态的交易，收据是不可用的。
+
+参数：
+
+-   `String` - 交易的哈希
+-   `Function` - 回调函数，用于支持异步的方式执行[async]。
+
+返回值：
+
+`Object` - 交易的收据对象，如果找不到返回`null`
+
+-   `blockHash`: `String` - 32字节，这个交易所在区块的哈希。
+-   `blockNumber`: `Number` - 交易所在区块的块号。
+-   `transactionHash`: `String` - 32字节，交易的哈希值。
+-   `transactionIndex`: `Number` - 交易在区块里面的序号，整数。
+-   `from`: `String` - 20字节，交易发送者的地址。
+-   `to`: `String` - 20字节，交易接收者的地址。如果是一个合约创建的交易，返回`null`。
+-   `cumulativeGasUsed`: `Number` - 当前交易执行后累计花费的`gas`总值[10](https://web3.tryblockchain.org/Web3.js-api-refrence.html#fn10)。
+-   `gasUsed`: `Number` - 执行当前这个交易单独花费的`gas`。
+-   `contractAddress`: `String` - 20字节，创建的合约地址。如果是一个合约创建交易，返回合约地址，其它情况返回`null`。
+-   `logs`: `Array` - 这个交易产生的日志对象数组。
+
+示例：
+
+```js
+> eth.getTransactionReceipt("0x64cfb2b5873b0d40e0151334c3024abda3de80faca34b149836dad3efe693d14")
+> 
+{
+  blockHash: "0x7f3a99c632eae7258808cde4856b523d55b5975d3a4ceeb8cf5f1cf2780ec90c",
+  blockNumber: 49,
+  contractAddress: "0x56ecb23f139ddbcc604fe68c137537151a00ae8a",
+  cumulativeGasUsed: 541817,
+  effectiveGasPrice: 1000000000,
+  from: "0x35d70f53bd45091f204833c7f8481b6adaac58ae",
+  gasUsed: 541817,
+  logs: [],
+  logsBloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  root: "0xeb799d28bdf450fa1b9ad549a185b2e694832b48f462288541f0d926b8a9e02c",
+  to: null,
+  transactionHash: "0x64cfb2b5873b0d40e0151334c3024abda3de80faca34b149836dad3efe693d14",
+  transactionIndex: 0,
+  type: "0x0"
+}
+```
 
 ### 查看当前区块总数
 
