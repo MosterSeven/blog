@@ -22,14 +22,3 @@ footer: MIT Licensed | Copyright © 2023-present Moster Seven
 <br/>
 <br/>
 
-<!-- ## 学习笔记列表
-
-- [Ajax 学习](https://gitee.com/mosterseven/study-notes-only/blob/master/Ajax.md)
-- [Docker 学习](/studyNote/docker_study.md)
-- [Express 学习](/studyNote/express_study.md)
-- [Geth 搭建以太坊私有链](/studyNote/geth_eth_study.md)
-- [Go 学习](/studyNote/go_study.md)
-- [Nginx 学习](/studyNote/nginx_study.md)
-- [Pinia 学习](/studyNote/pinia_study.md)
-- [Solidity 学习](/studyNote/solidity_study.md)
-- [Vite 学习](/studyNote/vite_study.md) -->
